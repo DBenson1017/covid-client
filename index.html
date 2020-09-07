@@ -3,11 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/app.css">
+    <title>Your COVID Tracker</title>
+    <link rel="stylesheet" type="text/css" href="/Users/user/Development/code/Mod3/Week1/project/covid-client/src/styles/app.css">
+    <script src="src/fetchadapter.js"></script>
     <script src="src/index.js"></script>
 </head>
 <body>
-    <h1>Wear a mask </h1>
+    <div class="nav">
+        <h1> Covid Tracker </h1>
+        <nav id="navbar"> 
+            <ul id="navlist">
+                <li><a href="google.com"> My Page </a></li>
+                <li><a href="google.com"> My State </a></li>
+                <li><a href="google.com"> My Reports </a></li>
+            </ul>
+        </nav>
+    </div>
+    <br>
+    <div class="hidden" id="loginContainer">
+        <section id="loginContent">
+            <form action="">
+                <h1>Welcome! <br><br> Login Or Register </h1>
+                <div>
+                    <input type="text" placeholder="Username" required="" id="username" />
+                </div>
+                <div>
+                    <input type="password" placeholder="Password" required="" id="password" />
+                </div>
+                <div>
+                    <input type="submit" id="loginButton" value="Log in" />
+                    <a href="#">Register</a>
+                </div>
+            </form><!-- form -->
+            </section><!-- content -->
+
+    </div>
+
 </body>
 </html>

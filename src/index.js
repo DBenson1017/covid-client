@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     loadStateData()
+    userList()
 })
 
 // initial US landing page data
@@ -48,3 +49,14 @@ function loadStateData(){
             console.log(data)
         })
 } // end of loadStateData
+
+const userList =() => {
+    fetch('http://localhost:3000/users')
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data){
+            console.log(data)
+        })
+    }
+

@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
+    loadStateData()
 })
 
 // initial US landing page data
-
 function loadLandingPageData(){
     fetch('https://api.covidtracking.com/v1/us/current.json')
         .then(function(response){
@@ -16,14 +16,12 @@ function loadLandingPageData(){
 
 function renderLPD(data){
     console.log('entered renderLPD')
-    console.log(data[0])
+    // console.log(data[0])
     let totalCases = data[0].positive
     let totalDeath = data[0].death
     let totalHospitalized = data[0].hospitalized
     let totalRecovered = data[0].recovered
     let currentlyHospitalized = data[0].hospitalizedCurrently
-    
-    console.log(totalCases)
 
     let totalC=document.querySelector('#total-cases')
     totalC.innerText = totalCases
@@ -39,7 +37,14 @@ function renderLPD(data){
 
     let currentlyH=document.querySelector('#currently-hospitalized')
     currentlyH.innerText = currentlyHospitalized
-  
-    
-
 }
+
+function loadStateData(){
+    fetch('https://api.covidtracking.com/v1/states/current.json')
+        .then(function(response){
+            return response.json()
+        })
+        .then(function (data){
+            console.log(data)
+        })
+} // end of loadStateData

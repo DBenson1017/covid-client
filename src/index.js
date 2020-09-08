@@ -95,6 +95,74 @@ function makeStateDropDown(state){
 // ###################### 
 
 //state API 
+// listener on state drop down
+document.addEventListener('submit', function(e){
+    e.preventDefault()
+    console.log(e.target)
+    if(e.target.id === 'state-selector'){
+        let form = document.querySelector('#state-selector')
+        console.log(form[0].value)
+        populateReportData(form[0].value)
+    }
+})
+//state fetch based on drop down 
+function populateReportData(state){
+    fetch(`https://api.covidtracking.com/v1/states/${state}/current.json`)
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data){
+            // console.log(data)
+            destructureData(data)
+        })
+}
+
+
+function destructureData(hash){
+    
+    let newData = {
+        dataQualityGrade,
+        date,
+        death,
+        deathIncrease,
+        deathProbable,
+        hospitalizedCumulative,
+        hospitalizedCurrently,
+        inIcuCurrently,
+        onVentilatorCurrently,
+        negative, 
+        positive, 
+        positiveCasesViral,
+        recovered, 
+        totalTestResults, 
+        totalTestsAntiboby, 
+        positiveTestsAntibody
+    } = hash 
+    console.log(hash)
+    console.log(newData)
+    
+
+
+}
+
+function renderReportSelector(){
+    let form = document.querySelector('#report-selector')
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 fetch('https://api.covidtracking.com/v1/states/oh/current.json')
     .then(function(response){
         return response.json()
@@ -122,5 +190,5 @@ fetch('https://api.covidtracking.com/v1/states/oh/current.json')
         selection.setAttribute('value',stateData.state)
         selection.innerText=stateData.state
         document.querySelector('#state-dropdown').append(selection)
-
     }
+    //#########################

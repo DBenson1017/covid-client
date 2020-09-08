@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
-    stateData()
-    userList()
+    // stateData()
+    // userList()
 })
 
+//#################### constants ##################################
+const stateList = []
 
 // initial US landing page data
 function loadLandingPageData(){
@@ -41,26 +43,27 @@ function renderLPD(data){
     currentlyH.innerText = currentlyHospitalized
 }
 
-const stateData = () => {
-    fetch('https://api.covidtracking.com/v1/states/current.json')
-        .then(function(response){
-            return response.json()
-        })
-        .then(function (data){
-            buildStateList(data)
-        })
-} // end of stateData
 
-function buildStateList(data){
-    console.log(data[0].state)
-    for(state of data){
-        stateList.push(state.state)
-        // console.log(stateList)
-    }
-    makeStateSelection()
-}//end of buildStateList
+// const stateData = () => {
+//     fetch('https://api.covidtracking.com/v1/states/current.json')
+//         .then(function(response){
+//             return response.json()
+//         })
+//         .then(function (data){
+//             buildStateList(data)
+//         })
+// } // end of stateData
 
-const stateList = []
+// function buildStateList(data){
+//     console.log(data[0].state)
+//     for(state of data){
+//         stateList.push(state.state)
+//         // console.log(stateList)
+//     }
+//     makeStateSelection()
+// }//end of buildStateList
+
+
 
 function makeStateDropDown(state){
     console.log(state)
@@ -75,17 +78,49 @@ function makeStateDropDown(state){
 
 
 
-function makeStateSelection(stateList){
-    stateList.forEach(makeStateDropDown)
-}
+// function makeStateSelection(stateList){
+//     stateList.forEach(makeStateDropDown)
+// }
 
-const userList =() => {
-    fetch('http://localhost:3000/users')
-        .then(function(response){
-            return response.json()
-        })
-        .then(function(data){
-            console.log(data)
-        })
+// const userList =() => {
+//     fetch('http://localhost:3000/users')
+//         .then(function(response){
+//             return response.json()
+//         })
+//         .then(function(data){
+//             console.log(data)
+//         })
+//     }
+
+// ###################### 
+
+//state API 
+fetch('https://api.covidtracking.com/v1/states/oh/current.json')
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        console.log(data)
+    })
+
+//########### build state list #################
+    fetch('https://api.covidtracking.com/v1/states/current.json')
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        separateStates(data)
+    })
+
+    function separateStates(array){
+        array.forEach(buildStateList)
     }
 
+    function buildStateList(stateData){
+        stateList.push(stateData.state)
+        let selection = document.createElement('option')
+        selection.setAttribute('value',stateData.state)
+        selection.innerText=stateData.state
+        document.querySelector('#state-dropdown').append(selection)
+
+    }

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateData()
     userList()
+    hideReportsPage()
 })
 
 
@@ -17,7 +18,7 @@ function loadLandingPageData(){
 } // end loadLandingPageData
 
 function renderLPD(data){
-    console.log('entered renderLPD')
+    // console.log('entered renderLPD')
     // console.log(data[0])
     let totalCases = data[0].positive
     let totalDeath = data[0].death
@@ -52,13 +53,14 @@ const stateData = () => {
 } // end of stateData
 
 function buildStateList(data){
-    console.log(data[0].state)
+    // console.log(data[0].state)
     for(state of data){
         stateList.push(state.state)
         // console.log(stateList)
     }
-    makeStateSelection()
-}//end of buildStateList
+    // makeStateSelection()
+}
+//end of buildStateList
 
 const stateList = []
 
@@ -74,12 +76,13 @@ function makeStateDropDown(state){
 
 
 
+// Creating drop Down List//
+// function makeStateSelection(stateList){
+//     stateList.forEach(makeStateDropDown)
+// }
 
-function makeStateSelection(stateList){
-    stateList.forEach(makeStateDropDown)
-}
-
-const userList =() => {
+// Creating a List of user//
+const userList = () => {
     fetch('http://localhost:3000/users')
         .then(function(response){
             return response.json()
@@ -88,4 +91,19 @@ const userList =() => {
             console.log(data)
         })
     }
+
+    // Hiding the login page //
+    // document.addEventListener('click', function(e){
+    //     if (e.target.id === "navlist"){
+    //         e.preventDefault;
+    //         const login = document.getElementById("loginContainer")
+    //         login.hidden = true
+    //     }
+    // }
+
+    /* Hide or show the reportsPage */
+    const hideReportsPage = () => {
+        const reportspage = document.getElementById("reports-page")
+    if (reportspage.hidden === false) { reportspage.hidden = true }
+}
 

@@ -108,9 +108,9 @@ function makeStateDropDown(state){
                 }
             } 
             else {
-                    
+                    // window.alert("Incorrect Name and Password, Register or try again.")
             }
-            window.alert("Incorrect Name and Password, Register or try again.")
+            
             })
         }
   

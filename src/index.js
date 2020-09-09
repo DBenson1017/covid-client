@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateData()
-    userList()
+   
     hideReportsPage()
 })
 
@@ -83,24 +83,37 @@ function makeStateDropDown(state){
 
         // Creating a List of user//
 
-const userList = () => {
+ const userList = () => {
     fetch('http://localhost:3000/users')
         .then(function(response){
             return response.json()
         })
         .then(function(data){
-            console.log(data)
+            comparingUsers(data)
         })
     }
 
-    // Hiding the login page //
-    // document.addEventListener('click', function(e){
-    //     if (e.target.id === "navlist"){
-    //         e.preventDefault;
-    //         const login = document.getElementById("loginContainer")
-    //         login.hidden = true
-    //     }
-    // }
+    const comparingUsers = (userlist) => {
+        const userInput = document.getElementById('username').value;
+        const passInput = document.getElementById('password').value;
+        
+        userlist.forEach(user => {
+            if (user.username === userInput) {
+                console.log("Username Correct")
+                if (user.password === passInput) {
+                    console.log('Password Correct')
+                    return 
+                    /* remove login container */
+                    /* enable the my page container */
+                }
+            } 
+            else {
+                    
+            }
+            window.alert("Incorrect Name and Password, Register or try again.")
+            })
+        }
+  
 
     /* Hide or show the reportsPage */
     const hideReportsPage = () => {
@@ -109,17 +122,24 @@ const userList = () => {
     }
 
     /* Assigning Username and password fields to Variable*/
-    const userNamePass = () => {
-        const userInput = document.getElementById('username').value;
-        const passInput = document.getElementById('password').value;
-        console.log(userInput)
-    }
+    
+        
 
     /* Handling the click to login */
     document.addEventListener('click', function(e){
        if (e.target.id === "loginButton") {
-           e.preventDefault;
-           
-           
+           e.preventDefault()
+        //    console.log(e.target)
+         userList()
        }
     })
+
+    
+  // Hiding the login page //
+    // document.addEventListener('click', function(e){
+    //     if (e.target.id === "navlist"){
+    //         e.preventDefault;
+    //         const login = document.getElementById("loginContainer")
+    //         login.hidden = true
+    //     }
+    // }

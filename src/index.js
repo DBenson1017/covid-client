@@ -81,7 +81,8 @@ function makeStateDropDown(state){
 //     stateList.forEach(makeStateDropDown)
 // }
 
-// Creating a List of user//
+        // Creating a List of user//
+
 const userList = () => {
     fetch('http://localhost:3000/users')
         .then(function(response){
@@ -105,5 +106,20 @@ const userList = () => {
     const hideReportsPage = () => {
         const reportspage = document.getElementById("reports-page")
     if (reportspage.hidden === false) { reportspage.hidden = true }
-}
+    }
 
+    /* Assigning Username and password fields to Variable*/
+    const userNamePass = () => {
+        const userInput = document.getElementById('username').value;
+        const passInput = document.getElementById('password').value;
+        console.log(userInput)
+    }
+
+    /* Handling the click to login */
+    document.addEventListener('click', function(e){
+       if (e.target.id === "loginButton") {
+           e.preventDefault;
+           
+           
+       }
+    })

@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
-    // stateData()
-    // userList()
+    stateData()
+    userList()
+    hideReportsPage()
 })
 
 //#################### constants ##################################
@@ -19,7 +20,7 @@ function loadLandingPageData(){
 } // end loadLandingPageData
 
 function renderLPD(data){
-    console.log('entered renderLPD')
+    // console.log('entered renderLPD')
     // console.log(data[0])
     let totalCases = data[0].positive
     let totalDeath = data[0].death
@@ -44,24 +45,24 @@ function renderLPD(data){
 }
 
 
-// const stateData = () => {
-//     fetch('https://api.covidtracking.com/v1/states/current.json')
-//         .then(function(response){
-//             return response.json()
-//         })
-//         .then(function (data){
-//             buildStateList(data)
-//         })
-// } // end of stateData
+const stateData = () => {
+    fetch('https://api.covidtracking.com/v1/states/current.json')
+        .then(function(response){
+            return response.json()
+        })
+        .then(function (data){
+            buildStateList(data)
+        })
+} // end of stateData
 
-// function buildStateList(data){
-//     console.log(data[0].state)
-//     for(state of data){
-//         stateList.push(state.state)
-//         // console.log(stateList)
-//     }
-//     makeStateSelection()
-// }//end of buildStateList
+function buildStateList(data){
+    console.log(data[0].state)
+    for(state of data){
+        stateList.push(state.state)
+        // console.log(stateList)
+    }
+    makeStateSelection()
+}//end of buildStateList
 
 
 
@@ -77,50 +78,70 @@ function makeStateDropDown(state){
 
 
 
-
+// Creating drop Down List//
 // function makeStateSelection(stateList){
 //     stateList.forEach(makeStateDropDown)
 // }
 
-// const userList =() => {
-//     fetch('http://localhost:3000/users')
-//         .then(function(response){
-//             return response.json()
-//         })
-//         .then(function(data){
-//             console.log(data)
-//         })
-//     }
+        // Creating a List of user//
 
-// ###################### 
-
-//state API 
-fetch('https://api.covidtracking.com/v1/states/oh/current.json')
-    .then(function(response){
-        return response.json()
-    })
-    .then(function(data){
-        console.log(data)
-    })
-
-//########### build state list #################
-    fetch('https://api.covidtracking.com/v1/states/current.json')
-    .then(function(response){
-        return response.json()
-    })
-    .then(function(data){
-        separateStates(data)
-    })
-
-    function separateStates(array){
-        array.forEach(buildStateList)
+ const userList = () => {
+    fetch('http://localhost:3000/users')
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data){
+            comparingUsers(data)
+        })
     }
 
-    function buildStateList(stateData){
-        stateList.push(stateData.state)
-        let selection = document.createElement('option')
-        selection.setAttribute('value',stateData.state)
-        selection.innerText=stateData.state
-        document.querySelector('#state-dropdown').append(selection)
+    const comparingUsers = (userlist) => {
+        const userInput = document.getElementById('username').value;
+        const passInput = document.getElementById('password').value;
+        
+        userlist.forEach(user => {
+            if (user.username === userInput) {
+                console.log("Username Correct")
+                if (user.password === passInput) {
+                    console.log('Password Correct')
+                    return 
+                    /* remove login container */
+                    /* enable the my page container */
+                }
+            } 
+            else {
+                    // window.alert("Incorrect Name and Password, Register or try again.")
+            }
+            
+            })
+        }
+  
 
+    /* Hide or show the reportsPage */
+    const hideReportsPage = () => {
+        const reportspage = document.getElementById("reports-page")
+    if (reportspage.hidden === false) { reportspage.hidden = true }
     }
+
+    /* Assigning Username and password fields to Variable*/
+    
+        
+
+    /* Handling the click to login */
+    document.addEventListener('click', function(e){
+       if (e.target.id === "loginButton") {
+           e.preventDefault()
+        //    console.log(e.target)
+         userList()
+       }
+    })
+
+    
+  // Hiding the login page //
+    // document.addEventListener('click', function(e){
+    //     if (e.target.id === "navlist"){
+    //         e.preventDefault;
+    //         const login = document.getElementById("loginContainer")
+    //         login.hidden = true
+    //     }
+    // }

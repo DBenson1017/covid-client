@@ -9,12 +9,33 @@
     </head>
         <body>
             <div class="nav">
-                <h1> Covid Tracker </h1>
+                <div id='title-ticker'>
+                    <h1> Covid Tracker </h1>
+                    <div id='landingBanner'> 
+                        <h3>U.S. National Metrics</h3>
+                        <table id='us-landing-page-data'>
+                        <tr>
+                            <th>Total Positive Cases</th>
+                            <th>Total Deaths</th>
+                            <th>Total Hospitalized</th>
+                            <th>Total Recovered</th>
+                            <th>Currently Hospitalized</th>
+                        </tr>
+                        <tr>
+                            <td id='total-cases'>loading </td>
+                            <td id='total-death'> </td>
+                            <td id='total-hospitalized'> </td>
+                            <td id='total-recovered'> </td>
+                            <td id='currently-hospitalized'> </td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
                 <nav id="navbar"> 
                     <ul id="navlist">
-                        <li><a href="google.com"> My Page </a></li>
-                        <li><a href="google.com"> My State </a></li>
-                        <li><a href="google.com"> My Reports </a></li>
+                        <li><a href=""> My Page </a></li>
+                        <li><a href=""> My State </a></li>
+                        <li><a href=""> My Reports </a></li>
                     </ul>
                 </nav>
             </div>
@@ -38,25 +59,7 @@
         
             </div>
         
-    <div> 
-        <h3>Current Metrics for the United States</h3>
-        <table id='us-landing-page-data'>
-        <tr>
-            <th>Total Positive Cases</th>
-            <th>Total Deaths</th>
-            <th>Total Hospitalized</th>
-            <th>Total Recovered</th>
-            <th>Currently Hospitalized</th>
-        </tr>
-        <tr>
-            <td id='total-cases'>loading </td>
-            <td id='total-death'> </td>
-            <td id='total-hospitalized'> </td>
-            <td id='total-recovered'> </td>
-            <td id='currently-hospitalized'> </td>
-        </tr>
-    </table>
-    </div>
+    
 
 
     <label for='states'>Select a state</label>
@@ -67,9 +70,7 @@
 
     <div>
         <button id='new-report' type="button">Run a Report</button>
-    </div>
-
-    <div>
+   
         <form>
             <label for='state'>Please choose a state:</label>
             <select name='state' id='state-drop-down'>
@@ -82,10 +83,11 @@
             <input type='checkbox' name='' id='' value='' >
             <input type='submit'>
         </form>
+        
     </div>
 
 
 
-<div id='test'> Test </div>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateLoader()
-    stateData()
+    // stateData()
     userList()
 })
 
@@ -213,15 +213,27 @@ function saveReport(){
 
 
 //########### build state list #################
-// function stateLoader(){
-//     fetch('https://api.covidtracking.com/v1/states/current.json')
-//     .then(function(response){
-//         return response.json()
-//     })
-//     .then(function(data){
-//         separateStates(data)
-//     })
-// }
+function stateLoader(){
+    fetch('https://api.covidtracking.com/v1/states/current.json')
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        separateStates(data)
+    })
+}
+
+    function separateStates(array){
+        array.forEach(buildStateList)
+    }
+
+    function buildStateList(stateData){
+        stateList.push(stateData.state)
+        let selection = document.createElement('option')
+        selection.setAttribute('value',stateData.state)
+        selection.innerText=stateData.state
+        document.querySelector('#state-dropdown').append(selection)
+    }
 
     const comparingUsers = (userlist) => {
         const userInput = document.getElementById('username').value;

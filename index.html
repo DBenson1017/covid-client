@@ -61,33 +61,26 @@
         
     
 
-
+    <form id='state-selector'>
     <label for='states'>Select a state</label>
         <select name='states' id='state-dropdown'>
             <option value=''> </option>
         </select>
+        <input type='submit' id='state-select-bttn'></input>
+    </form>
 
+    <form id='report-selector'>
+        <input type='submit' value='Build Report'></input><br>
+    </form>
 
-    <div>
-        <button id='new-report' type="button">Run a Report</button>
-   
-        <form>
-            <label for='state'>Please choose a state:</label>
-            <select name='state' id='state-drop-down'>
-                
-            </select>
-            <input type='checkbox' name='' id='' value='' >
-            <input type='checkbox' name='' id='' value='' >
-            <input type='checkbox' name='' id='' value='' >
-            <input type='checkbox' name='' id='' value='' >
-            <input type='checkbox' name='' id='' value='' >
-            <input type='submit'>
-        </form>
-        
+    <div id='report-display'>
+        <table id='report-table'>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </table>
+
     </div>
-
-
-
-
 </body>
 </html>

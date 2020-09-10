@@ -185,7 +185,6 @@ function saveReport(choices){
     let data = choices
     let key = 'user_id'
     data[key]=standard_id
-
     console.log(data)
     let options = {
         method: 'POST',

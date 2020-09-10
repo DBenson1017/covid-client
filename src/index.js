@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateLoader()  //build state list 
-    // stateData() // OBSOLETE  build state list 
     // userList()
-    // hideStateSelector()
-    // hideReportSelector()
+    hideStateSelector()
+    hideReportSelector()
     // hideLoginContainer()
-    // hideNewReport()
+    hideNewReport()
 })
 //#################### constants ##################################
 const stateList = []
@@ -22,8 +21,10 @@ document.addEventListener('submit', function(e){
         console.log('1')
     } else if (e.target.id==='report-selector'){
         console.log('build report clicked')
+        hideReportSelector()
+        hideNewReport()
         renderReportSelection()
-        saveReport()
+        // saveReport()
     }
 })
 /* Handling the click to login */
@@ -39,6 +40,8 @@ document.addEventListener('click', function(e){
         createUser(userInput, passInput)
     } else if(e.target.id === 'my-reports'){
         e.preventDefault()
+        hideStateSelector()
+        hideNewReport()
         showReports()
     }
 })
@@ -236,6 +239,7 @@ function renderReports(report){
                 hideLoginContainer() 
                 const stateSelector = document.getElementById("state-selector")
                 stateSelector.hidden = false
+                hideReportSelector()
                 currentId = user.id 
                 console.log(currentId)
             }      
@@ -343,6 +347,9 @@ function renderReports(report){
         const hideReportSelector  = () => {
             const reportSelector = document.getElementById("report-selector")
             if (reportSelector.hidden === false) { reportSelector.hidden = true }
+            else if (reportSelector.hidden === true){
+                reportSelector.hidden = false
+            }
         }
         
         const hideStateSelector  = () => {
@@ -356,6 +363,11 @@ function renderReports(report){
     }
 
     const hideNewReport = () => {
-        const newReport = document.getElementById("report-display")
+        const newReport = document.getElementById("report-table")
         if (newReport.hidden === false) { newReport.hidden = true}
+        else if (newReport.hidden === true){
+            newReport.hidden = false
+        }
     }
+
+    

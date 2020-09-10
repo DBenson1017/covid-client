@@ -236,7 +236,12 @@ form:after {
 
 /*/ reports page /*/
 
-#reports-page {
-    
- 
+.table {
+    font: bold;
+    border: 1px solid black;
+}
+
+#report-container{
+    display: flex;
+    flex-direction: column; 
 }

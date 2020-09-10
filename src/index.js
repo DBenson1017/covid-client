@@ -1,107 +1,88 @@
 document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
-    stateLoader()
-    // stateData()
+    stateLoader()  //build state list 
+    // stateData() // OBSOLETE  build state list 
     // userList()
-    hideStateSelector()
-    hideReportSelector()
+    // hideStateSelector()
+    // hideReportSelector()
     // hideLoginContainer()
-    hideNewReport()
+    // hideNewReport()
 })
 //#################### constants ##################################
 const stateList = []
 let currentId = 1
 
-// initial US landing page data //
-
-function loadLandingPageData(){
-    fetch('https://api.covidtracking.com/v1/us/current.json')
-        .then(function(response){
-            return response.json()
-        })
-        .then(function(data){
-            renderLPD(data)
-        })
-} 
-
-function renderLPD(data){
-   
-    let totalCases = data[0].positive
-    let totalDeath = data[0].death
-    let totalHospitalized = data[0].hospitalized
-    let totalRecovered = data[0].recovered
-    let currentlyHospitalized = data[0].hospitalizedCurrently
-
-    let totalC=document.querySelector('#total-cases')
-    totalC.innerText = totalCases
-
-    let totalD=document.querySelector('#total-death')
-    totalD.innerText = totalDeath
-
-    let totalH=document.querySelector('#total-hospitalized')
-    totalH.innerText = totalHospitalized
-
-    let totalR=document.querySelector('#total-recovered')
-    totalR.innerText = totalRecovered
-
-    let currentlyH=document.querySelector('#currently-hospitalized')
-    currentlyH.innerText = currentlyHospitalized
-}
-
 // listener on state drop down
 document.addEventListener('submit', function(e){
-    e.preventDefault()
     console.log(e.target)
+    e.preventDefault()
     if(e.target.id === 'state-selector'){
         let form = document.querySelector('#state-selector')
         populateReportData(form[0].value)
+        console.log('1')
     } else if (e.target.id==='report-selector'){
         console.log('build report clicked')
         renderReportSelection()
         saveReport()
     }
 })
-const stateData = () => {
-    fetch('https://api.covidtracking.com/v1/states/current.json')
-        .then(function(response){
-            return response.json()
-        })
-        .then(function (data){
-            buildStateList(data)
-        })
-} // end of stateData
-
-function buildStateList(data){
-    console.log(data[0].state)
-    for(state of data){
-        stateList.push(state.state)
-        // console.log(stateList)
+/* Handling the click to login */
+document.addEventListener('click', function(e){
+    console.log(e.target)
+    if (e.target.id === "loginButton") {
+        e.preventDefault()
+        userList()
+    } else if (e.target.id === 'register-button') {
+        e.preventDefault()
+        let userInput = document.getElementById('username').value;
+        let passInput = document.getElementById('password').value;
+        createUser(userInput, passInput)
+    } else if(e.target.id === 'my-reports'){
+        e.preventDefault()
+        showReports()
     }
-    makeStateSelection()
-}//end of buildStateList
+    // } else if(e.target.id === 'state-select-bttn'){
+    //     let form = document.querySelector('#state-selector')
+    //     populateReportData(form[0].value)
+    //     console.log('1')
+    // }
+})
 
-function makeStateDropDown(state){
-    console.log(state)
-    let list= document.querySelector('#state-drop-down')
-    let newS = document.createElement('option')
-    newS.setAttribute('value', state)
-    newS.innerText=state.value
-    list.append(newS)
+//########### build state list 2 #################
+function stateLoader(){
+    fetch('https://api.covidtracking.com/v1/states/current.json')
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        separateStates(data)
+    })
 }
+function separateStates(array){
+    array.forEach(buildStateList)
+}
+function buildStateList(stateData){
+    stateList.push(stateData.state)
+        let selection = document.createElement('option')
+        selection.setAttribute('value',stateData.state)
+        selection.innerText=stateData.state
+        document.querySelector('#state-dropdown').append(selection)
+}
+//########################################################
 
 //############# state-based data selector ###################
 function populateReportData(state){
     fetch(`https://api.covidtracking.com/v1/states/${state}/current.json`)
-        .then(function(response){
-            return response.json()
-        })
-        .then(function(data){
-            console.log(data)
-            displayData(data)
-        })
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        console.log('2')
+        displayData(data)
+    })
 }
-
 function displayData(hash){
+    console.log('3')
     let fields = [
         'dataQualityGrade',
         'date',
@@ -120,8 +101,8 @@ function displayData(hash){
         'totalTestsAntiboby', 
         'positiveTestsAntibody'
     ]
-     for (const key in hash){
-    // console.log(`${key}:${hash[key]}`)
+    for (const key in hash){
+        console.log(`4`)
         if(fields.includes(`${key}`)){
             let reportSelector = document.querySelector('#report-selector')
             
@@ -135,7 +116,7 @@ function displayData(hash){
             lbl.innerText =`${key}`
 
             let br = document.createElement('br')
-
+            
             lbl.append(box)
             lbl.append(br)
             reportSelector.append(lbl)
@@ -150,33 +131,27 @@ function renderReportSelection(){
     let selections = document.querySelectorAll('input:checked')
     let data ={}
     for(element of selections){
-    let newRow = document.createElement('tr')
-    let newKey = document.createElement('td')
-    newKey.innerText = element.attributes[1].nodeValue
-    let newValue = document.createElement('td')
-    newValue.innerText = element.attributes[2].nodeValue
-    newRow.append(newKey)
-    newRow.append(newValue)
-    reportTable.append(newRow)
-
-   
-
-    let key= element.name
-    let value = element.value
-    data[key]=value
-    } // end of forEach 
-    // console.log(data) 
+        let newRow = document.createElement('tr')
+        let newKey = document.createElement('td')
+        newKey.innerText = element.attributes[1].nodeValue
+        let newValue = document.createElement('td')
+        newValue.innerText = element.attributes[2].nodeValue
+        newRow.append(newKey)
+        newRow.append(newValue)
+        reportTable.append(newRow)
+        
+        let key= element.name
+        let value = element.value
+        data[key]=value
+    } 
     saveReport(data)
-} // end of render Report Selection 
+} 
 
-//save report to rails API 
+//#################### POST Report to API #################
 function saveReport(choices){
-    //take selections to make data object 
-    // make configOb with data object
-    // pass into a post request fetch 
     let data = choices
-    let key = 'user_id'
-    data[key]=current_id
+    // let key = 'user_id'
+    data['user_id']=currentId
     console.log(data)
     let options = {
         method: 'POST',
@@ -192,36 +167,71 @@ function saveReport(choices){
         })
         .then(function(update){
             console.log(update)
+            //render report from promise return 
         })
-} // end of saveReport 
+} 
+//#############################################
 
-//########### build state list #################
-function stateLoader(){
-    fetch('https://api.covidtracking.com/v1/states/current.json')
+//############### SHOW (GET) REPORTS ###############
+function showReports(currentId){
+    fetch('http://localhost:3000/reports')
     .then(function(response){
         return response.json()
     })
-    .then(function(data){
-        separateStates(data)
+    .then(function(reports){
+        console.log(reports)
+        parseReports(reports)
     })
 }
 
-    function separateStates(array){
-        array.forEach(buildStateList)
+function parseReports(unParsed){
+    // console.log('2')
+    unParsed.forEach(sortReports)
+}
+
+function sortReports(unsorted){
+    console.log(unsorted)
+    if(unsorted.user_id === currentId){
+        renderReports(unsorted)
+    }
+}
+
+function renderReports(report){
+    console.log(report)
+    let reportContainer=document.querySelector('#report-container')
+    let reportTable = document.createElement('table')
+    reportTable.setAttribute('class', 'table')
+    reportTable.innerHTML=
+        `<tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>`
+    for(const key in report){
+        if(report[key] != null){
+            let row= document.createElement('tr')
+            let field = document.createElement('td')
+            field.innerText = `${key}`
+            let value = document.createElement('td')
+            value.innerText=report[key]
+            row.append(field)
+            row.append(value)
+            reportTable.append(row)
+            reportContainer.append(reportTable)
+        } else {
+            // console.log('skiped')
+        }
+        
     }
 
-    function buildStateList(stateData){
-        stateList.push(stateData.state)
-        let selection = document.createElement('option')
-        selection.setAttribute('value',stateData.state)
-        selection.innerText=stateData.state
-        document.querySelector('#state-dropdown').append(selection)
-    }
 
+}
+
+
+//##################################################
     const comparingUsers = (userlist) => {
         let userInput = document.getElementById('username').value;
         let passInput = document.getElementById('password').value;
-                
+        
         for (user of userlist){
             if (user.username === userInput && user.password === passInput) {
                 hideLoginContainer() 
@@ -232,11 +242,10 @@ function stateLoader(){
             }      
             else{
             //    window.alert('Incorrect name and password, please register')
-             }        
+        }        
             }
-     }
+        }
 // creating a user//
-
         const createUser = (uname, pword) => {
             let data = {username: uname, password: pword}
             let options = {
@@ -260,9 +269,8 @@ function stateLoader(){
                 currentId = data.id 
             })
         }
-    
-
-    /* Assigning Username and password fields to Variable*/
+        
+        /* Assigning Username and password fields to Variable*/
             
     const userList = () => {
         fetch('http://localhost:3000/users')
@@ -273,48 +281,60 @@ function stateLoader(){
                 comparingUsers(data)
             })
         }
-
-    /* Handling the click to login */
-    document.addEventListener('click', function(e){
-        e.preventDefault()
-       if (e.target.id === "loginButton") {
-        //    console.log(e.target)
-         userList()
-       } else if (e.target.id === 'register-button') {
-        let userInput = document.getElementById('username').value;
-        let passInput = document.getElementById('password').value;
-
-        createUser(userInput, passInput)
-       }
-    })
-
-
-       function buildStateList(stateData){
-        stateList.push(stateData.state)
-        let selection = document.createElement('option')
-        selection.setAttribute('value',stateData.state)
-        selection.innerText=stateData.state
-        document.querySelector('#state-dropdown').append(selection)
-    }
-   
-    ////Hide and Show Functions///
-
-    const hideReportSelector  = () => {
-        const reportSelector = document.getElementById("report-selector")
-    if (reportSelector.hidden === false) { reportSelector.hidden = true }
-    }
-
-    const hideStateSelector  = () => {
-        const stateSelector = document.getElementById("state-selector")
-    if (stateSelector.hidden === false) { stateSelector.hidden = true }
-    }
-
-    const hideLoginContainer  = () => {
+        
+        function buildStateList(stateData){
+            stateList.push(stateData.state)
+            let selection = document.createElement('option')
+            selection.setAttribute('value',stateData.state)
+            selection.innerText=stateData.state
+            document.querySelector('#state-dropdown').append(selection)
+        }
+        //////// initial US landing page data //////////////
+        function loadLandingPageData(){
+            fetch('https://api.covidtracking.com/v1/us/current.json')
+                .then(function(response){
+                    return response.json()
+                })
+                .then(function(data){
+                    renderLPD(data)
+                })
+        } 
+        function renderLPD(data){
+            let totalCases = data[0].positive
+            let totalDeath = data[0].death
+            let totalHospitalized = data[0].hospitalized
+            let totalRecovered = data[0].recovered
+            let currentlyHospitalized = data[0].hospitalizedCurrently
+            let totalC=document.querySelector('#total-cases')
+            totalC.innerText = totalCases
+            let totalD=document.querySelector('#total-death')
+            totalD.innerText = totalDeath
+            let totalH=document.querySelector('#total-hospitalized')
+            totalH.innerText = totalHospitalized
+            let totalR=document.querySelector('#total-recovered')
+            totalR.innerText = totalRecovered
+            let currentlyH=document.querySelector('#currently-hospitalized')
+            currentlyH.innerText = currentlyHospitalized
+        }
+        
+        ////Hide and Show Functions///
+        
+        const hideReportSelector  = () => {
+            const reportSelector = document.getElementById("report-selector")
+            if (reportSelector.hidden === false) { reportSelector.hidden = true }
+        }
+        
+        const hideStateSelector  = () => {
+            const stateSelector = document.getElementById("state-selector")
+            if (stateSelector.hidden === false) { stateSelector.hidden = true }
+        }
+        
+        const hideLoginContainer  = () => {
         const loginContainer = document.getElementById("loginContainer")
-    if (loginContainer.hidden === false) { loginContainer.hidden = true }
+        if (loginContainer.hidden === false) { loginContainer.hidden = true }
     }
 
     const hideNewReport = () => {
         const newReport = document.getElementById("report-display")
-    if (newReport.hidden === false) { newReport.hidden = true}
+        if (newReport.hidden === false) { newReport.hidden = true}
     }

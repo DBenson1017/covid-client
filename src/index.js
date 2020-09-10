@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateLoader()
     // stateData()
-    userList()
+    // userList()
     hideStateSelector()
     hideReportSelector()
     // hideLoginContainer()
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function(e){
 
 //#################### constants ##################################
 const stateList = []
-
+let currentId = 1
 
 // initial US landing page data //
 
@@ -222,24 +222,47 @@ function stateLoader(){
     }
 
     const comparingUsers = (userlist) => {
-        const userInput = document.getElementById('username').value;
-        const passInput = document.getElementById('password').value;
-        
-        userlist.forEach(user => {
-            if (user.username === userInput) {
-                console.log("Username Correct")
-                if (user.password === passInput) {
-                    console.log('Password Correct')
-                    return 
-                    /* remove login container */
-                    /* enable the my page container */
-                }
-            } 
-            else {
+        let userInput = document.getElementById('username').value;
+        let passInput = document.getElementById('password').value;
+                
+        for (user of userlist){
+            if (user.username === userInput && user.password === passInput) {
+                hideLoginContainer() 
+                const stateSelector = document.getElementById("state-selector")
+                stateSelector.hidden = false
+                currentId = user.id 
+                console.log(currentId)
+            }      
+            else{
+            //    window.alert('Incorrect name and password, please register')
+             }        
             }
-           })
-        }
+     }
+// creating a user//
 
+        const createUser = (uname, pword) => {
+            let data = {username: uname, password: pword}
+            let options = {
+                method: "POST",
+                
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                
+                body: JSON.stringify(data)
+            }
+            fetch('http://localhost:3000/users', options)
+            .then(function(response){
+                return response.json()
+            })
+            .then(function(data){
+                console.log(data)
+                hideLoginContainer()
+                hideStateSelector()
+                currentId = data.id 
+            })
+        }
     
 
     /* Assigning Username and password fields to Variable*/
@@ -256,10 +279,15 @@ function stateLoader(){
 
     /* Handling the click to login */
     document.addEventListener('click', function(e){
+        e.preventDefault()
        if (e.target.id === "loginButton") {
-           e.preventDefault()
         //    console.log(e.target)
          userList()
+       } else if (e.target.id === 'register-button') {
+        let userInput = document.getElementById('username').value;
+        let passInput = document.getElementById('password').value;
+
+        createUser(userInput, passInput)
        }
     })
 

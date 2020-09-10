@@ -41,14 +41,9 @@ document.addEventListener('click', function(e){
         e.preventDefault()
         showReports()
     }
-    // } else if(e.target.id === 'state-select-bttn'){
-    //     let form = document.querySelector('#state-selector')
-    //     populateReportData(form[0].value)
-    //     console.log('1')
-    // }
 })
 
-//########### build state list 2 #################
+//########### build state list #################
 function stateLoader(){
     fetch('https://api.covidtracking.com/v1/states/current.json')
     .then(function(response){
@@ -131,6 +126,7 @@ function renderReportSelection(){
     let selections = document.querySelectorAll('input:checked')
     let data ={}
     for(element of selections){
+        if(element.value){
         let newRow = document.createElement('tr')
         let newKey = document.createElement('td')
         newKey.innerText = element.attributes[1].nodeValue
@@ -142,7 +138,10 @@ function renderReportSelection(){
         
         let key= element.name
         let value = element.value
-        data[key]=value
+        data[key]=value}
+        else if (element.value=== null){
+            window.alert(`This state doens't have a value for ${element.name}`)
+        }
     } 
     saveReport(data)
 } 

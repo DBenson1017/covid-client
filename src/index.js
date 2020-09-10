@@ -3,27 +3,18 @@ document.addEventListener('DOMContentLoaded', function(e){
     stateLoader()
     // stateData()
     userList()
+    hideStateSelector()
+    hideReportSelector()
+    // hideLoginContainer()
+    hideNewReport()
 })
 
 //#################### constants ##################################
 const stateList = []
 
 
-// listener on state drop down
-document.addEventListener('submit', function(e){
-    e.preventDefault()
-    console.log(e.target)
-    if(e.target.id === 'state-selector'){
-        let form = document.querySelector('#state-selector')
-        populateReportData(form[0].value)
-    } else if (e.target.id==='report-selector'){
-        console.log('build report clicked')
-        renderReportSelection()
-        saveReport()
-    }
-})
+// initial US landing page data //
 
-// initial US landing page data
 function loadLandingPageData(){
     fetch('https://api.covidtracking.com/v1/us/current.json')
         .then(function(response){
@@ -32,11 +23,10 @@ function loadLandingPageData(){
         .then(function(data){
             renderLPD(data)
         })
-} // end loadLandingPageData
+} 
 
 function renderLPD(data){
-    // console.log('entered renderLPD')
-    // console.log(data[0])
+   
     let totalCases = data[0].positive
     let totalDeath = data[0].death
     let totalHospitalized = data[0].hospitalized
@@ -59,7 +49,19 @@ function renderLPD(data){
     currentlyH.innerText = currentlyHospitalized
 }
 
-
+// listener on state drop down
+document.addEventListener('submit', function(e){
+    e.preventDefault()
+    console.log(e.target)
+    if(e.target.id === 'state-selector'){
+        let form = document.querySelector('#state-selector')
+        populateReportData(form[0].value)
+    } else if (e.target.id==='report-selector'){
+        console.log('build report clicked')
+        renderReportSelection()
+        saveReport()
+    }
+})
 const stateData = () => {
     fetch('https://api.covidtracking.com/v1/states/current.json')
         .then(function(response){
@@ -102,16 +104,6 @@ function populateReportData(state){
             displayData(data)
         })
 }
-
- const userList = () => {
-    fetch('http://localhost:3000/users')
-        .then(function(response){
-            return response.json()
-        })
-        .then(function(data){
-            comparingUsers(data)
-        })
-    }
 
 function displayData(hash){
     let fields = [
@@ -206,12 +198,6 @@ function saveReport(){
 
 
 
-
-
-
-
-
-
 //########### build state list #################
 function stateLoader(){
     fetch('https://api.covidtracking.com/v1/states/current.json')
@@ -250,22 +236,23 @@ function stateLoader(){
                 }
             } 
             else {
-                    // window.alert("Incorrect Name and Password, Register or try again.")
             }
-            
-            })
+           })
         }
-  
 
-    /* Hide or show the reportsPage */
-    const hideReportsPage = () => {
-        const reportspage = document.getElementById("reports-page")
-    if (reportspage.hidden === false) { reportspage.hidden = true }
-    }
+    
 
     /* Assigning Username and password fields to Variable*/
-    
-        
+            
+    const userList = () => {
+        fetch('http://localhost:3000/users')
+            .then(function(response){
+                return response.json()
+            })
+            .then(function(data){
+                comparingUsers(data)
+            })
+        }
 
     /* Handling the click to login */
     document.addEventListener('click', function(e){
@@ -276,40 +263,33 @@ function stateLoader(){
        }
     })
 
-    
-  // Hiding the login page //
-    // document.addEventListener('click', function(e){
-    //     if (e.target.id === "navlist"){
-    //         e.preventDefault;
-    //         const login = document.getElementById("loginContainer")
-    //         login.hidden = true
-    //     }
-    // }
-    function buildStateList(stateData){
+
+       function buildStateList(stateData){
         stateList.push(stateData.state)
         let selection = document.createElement('option')
         selection.setAttribute('value',stateData.state)
         selection.innerText=stateData.state
         document.querySelector('#state-dropdown').append(selection)
     }
-    //#########################
+   
+    ////Hide and Show Functions///
 
+    const hideReportSelector  = () => {
+        const reportSelector = document.getElementById("report-selector")
+    if (reportSelector.hidden === false) { reportSelector.hidden = true }
+    }
 
-    // let fields = [
-    //     'dataQualityGrade',
-    //     date,
-    //     death,
-    //     deathIncrease,
-    //     deathProbable,
-    //     hospitalizedCumulative,
-    //     hospitalizedCurrently,
-    //     inIcuCurrently,
-    //     onVentilatorCurrently,
-    //     negative, 
-    //     positive, 
-    //     positiveCasesViral,
-    //     recovered, 
-    //     totalTestResults, 
-    //     totalTestsAntiboby, 
-    //     positiveTestsAntibody
-    // ]
+    const hideStateSelector  = () => {
+        const stateSelector = document.getElementById("state-selector")
+    if (stateSelector.hidden === false) { stateSelector.hidden = true }
+    }
+
+    const hideLoginContainer  = () => {
+        const loginContainer = document.getElementById("loginContainer")
+    if (loginContainer.hidden === false) { loginContainer.hidden = true }
+    }
+
+    const hideNewReport = () => {
+        const newReport = document.getElementById("report-display")
+    if (newReport.hidden === false) { newReport.hidden = true}
+    }

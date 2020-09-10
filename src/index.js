@@ -4,10 +4,9 @@ document.addEventListener('DOMContentLoaded', function(e){
     // stateData()
     userList()
 })
-
 //#################### constants ##################################
 const stateList = []
-
+let standard_id = 1 
 
 // listener on state drop down
 document.addEventListener('submit', function(e){
@@ -79,8 +78,6 @@ function buildStateList(data){
     makeStateSelection()
 }//end of buildStateList
 
-
-
 function makeStateDropDown(state){
     console.log(state)
     let list= document.querySelector('#state-drop-down')
@@ -89,7 +86,6 @@ function makeStateDropDown(state){
     newS.innerText=state.value
     list.append(newS)
 }
-
 
 //############# state-based data selector ###################
 function populateReportData(state){
@@ -158,59 +154,55 @@ function displayData(hash){
 function renderReportSelection(){
     //###### builds table structure
     let reportTable=document.querySelector('#report-table')
-
     // ##### populates table with selected values
     let selections = document.querySelectorAll('input:checked')
-    console.dir(selections)
+    let data ={}
     for(element of selections){
-
-    console.log(element.attributes[1].nodeValue)
     let newRow = document.createElement('tr')
-
     let newKey = document.createElement('td')
     newKey.innerText = element.attributes[1].nodeValue
-    
     let newValue = document.createElement('td')
     newValue.innerText = element.attributes[2].nodeValue
-    debugger
-    
     newRow.append(newKey)
     newRow.append(newValue)
     reportTable.append(newRow)
+
+   
+
+    let key= element.name
+    let value = element.value
+    data[key]=value
     } // end of forEach 
+    // console.log(data) 
+    saveReport(data)
 } // end of render Report Selection 
 
 //save report to rails API 
-function saveReport(){
+function saveReport(choices){
     //take selections to make data object 
     // make configOb with data object
     // pass into a post request fetch 
+    let data = choices
+    let key = 'user_id'
+    data[key]=standard_id
 
-    let selections = document.querySelectorAll('input:checked')
-    let data = {
-        
+    console.log(data)
+    let options = {
+        method: 'POST',
+        headers:{
+            'content-type': 'application/json',
+            'accept': 'application/json'
+        },
+        body: JSON.stringify(data)
     }
-    for(element of selections){
-        let key= `${element.attributes[1].nodeValue}`
-        let value = parseInt(element.attributes[2].nodeValue, 10)
-        
-        console.log(key)
-        console.log(value)
-        data[key]=value
-
-        console.log(data)
-
-    }
+    fetch('http://localhost:3000/reports', options)
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(update){
+            console.log(update)
+        })
 } // end of saveReport 
-
-
-
-
-
-
-
-
-
 
 //########### build state list #################
 function stateLoader(){

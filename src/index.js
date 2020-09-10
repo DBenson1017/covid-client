@@ -269,6 +269,28 @@ function renderReports(report){
             })
         }
         
+
+
+        const displayUserpage = () => {
+            let userPage = document.createElement('div');
+            userPage.id = "user-page"
+            userPage.innerHTML = `
+            <form id='user-form'>
+            
+            <label>First Name:</label><br>
+            <input type="text" id="users-name" name="users-name"><br><br>
+    
+            <label>Last Name:</label><br>
+            <input type="text" id="users-surname" name="users-surname"><br><br>
+    
+            <label>Username:</label><br>
+            <input type="text" id="username" name="username"><br><br>
+    
+            <input type="submit" id="update-button" value="Update Profile">        
+            </form>
+            `
+            document.getElementById('body').append(userPage) 
+        }
         /* Assigning Username and password fields to Variable*/
             
     const userList = () => {

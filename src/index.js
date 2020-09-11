@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateLoader()  //build state list 
     // userList()
-    hideStateSelector()
-    hideReportSelector()
-    hideLoginContainer()
+    // hideStateSelector()
+    // hideReportSelector()
+    // hideLoginContainer()
     hideNewReport()
-    //displayUserpage()
+    displayUserpage()
 })
 //#################### constants ##################################
 const stateList = []

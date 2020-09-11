@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function(e){
     loadLandingPageData()
     stateLoader()  //build state list 
     // userList()
-     hideStateSelector()
+      hideStateSelector()
      hideReportSelector()
-    // hideLoginContainer()
+    //  hideLoginContainer()
     hideNewReport()
     //displayUserpage()
 })
@@ -26,8 +26,50 @@ document.addEventListener('submit', function(e){
         hideNewReport()
         renderReportSelection()
         // saveReport()
+    } else if (e.target.id==='user-form'){
+        console.log("buttoneer clicked")
+        let form = document.querySelector('#user-form')
+        
+        let unpName = form[1].value
+        let unpUname = form[2].value
+        let unpEmail = form[3].value
+        let unpPass = form[4].value
+        let unpState = form[5].value
+        // console.log(unpState)
+        // console.log(unpName.value)
+        createUser(unpName, unpUname, unpEmail, unpPass, unpState)
+    
     }
 })
+
+    // Post Function //
+    function saveReport(choices){
+        let data = choices
+        // let key = 'user_id'
+        data['user_id']=currentId
+        console.log(data)
+        let options = {
+            method: 'POST',
+            headers:{
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        fetch('http://localhost:3000/reports', options)
+            .then(function(response){
+                return response.json()
+            })
+            .then(function(update){
+                console.log(update)
+                //render report from promise return 
+            })
+    } 
+
+
+
+
+    
 /* Handling the click to login */
 document.addEventListener('click', function(e){
     console.log(e.target)
@@ -36,9 +78,12 @@ document.addEventListener('click', function(e){
         userList()
     } else if (e.target.id === 'register-button') {
         e.preventDefault()
+        displayUserpage()
+        hideLoginContainer()
+        // hideStateSelector()
         let userInput = document.getElementById('username').value;
         let passInput = document.getElementById('password').value;
-        createUser(userInput, passInput)
+        // createUser(userInput, passInput)
     } else if(e.target.id === 'my-reports'){
         e.preventDefault()
         hideStateSelector()
@@ -46,6 +91,8 @@ document.addEventListener('click', function(e){
         showReports()
     }
 })
+ 
+
 
 //########### build state list #################
 function stateLoader(){
@@ -230,8 +277,14 @@ function renderReports(report){
 //##############Login and User Functions########
 
 // creating a user//
-        const createUser = (uname, pword) => {
-            let data = {username: uname, password: pword}
+        const createUser = (name, username, email, password, state) => {
+            let data = {
+                name: name,
+                username: username,
+                email: email,
+                password: password,
+                state: state
+            }
             let options = {
                 method: "POST",
                 
@@ -250,9 +303,11 @@ function renderReports(report){
                 console.log(data)
                 currentId = data.id 
             })
-            hideLoginContainer()
+            // hideLoginContainer()
             hideStateSelector()
-            console.log('hide state container')
+            const test = document.getElementById("user-page")
+            test.hidden = true
+            // console.log('hide state container')w
         }
      ///######## Comparing users for Login##########
 const comparingUsers = (userlist) => {
@@ -285,7 +340,7 @@ const comparingUsers = (userlist) => {
             <div id="form-fields">
             <div><label>Name*</label><input type="text" name="name"</div>
             <div><label>Username*</label><input type="text" name="uname"></div>
-            <div><label>Email*</label><input type="text" name="name"></div>
+            <div><label>Email*</label><input type="text" name="email"></div>
             <div><label>Password*</label><input type="password" name="pword"></div>
             <div>
               <label>State*</label>  
@@ -351,6 +406,7 @@ const comparingUsers = (userlist) => {
             </form>
             `
             document.getElementById('body').append(userPage) 
+
         }
         /* Assigning Username and password fields to Variable*/
             
@@ -404,9 +460,7 @@ const comparingUsers = (userlist) => {
         const hideReportSelector  = () => {
             const reportSelector = document.getElementById("report-selector")
             if (reportSelector.hidden === false) { reportSelector.hidden = true }
-            else if (reportSelector.hidden === true){
-                reportSelector.hidden = false
-            }
+            else if (reportSelector.hidden === true){ reportSelector.hidden = false}
         }
         
         const hideStateSelector  = () => {
@@ -418,8 +472,13 @@ const comparingUsers = (userlist) => {
         const hideLoginContainer  = () => {
         const loginContainer = document.getElementById("loginContainer")
         if (loginContainer.hidden === false) { loginContainer.hidden = true }
+        else if (loginContainer.hidden === true){loginContainer.hidden =false}
     }
-
+    // const hideLoginContainer  = () => {
+    //     const loginContainer = document.getElementById("loginContainer")
+    //     if (loginContainer.hidden === false) { loginContainer.hidden = true }
+    //     else if (loginContainer.hidden === true){loginContainer.hidden =false}
+    // }
     const hideNewReport = () => {
         const newReport = document.getElementById("report-table")
         if (newReport.hidden === false) { newReport.hidden = true}

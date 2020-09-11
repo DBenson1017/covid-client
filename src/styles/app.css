@@ -5,7 +5,7 @@
     background-image: url("https://acttoronto.com/wp-content/uploads/2015/09/Blue-Banner.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    /* background-position: center; */ */
+    /* background-position: center; */
 }
 #covid-logo {
     display: flex;
@@ -38,7 +38,7 @@
    border-style: none;
    /* width: 150px; */
    height: 40px;
-   background-color: rgba(103, 198, 253, 0.350);
+   background-color: rgba(31, 72, 126, 0.65);
 }
 #us-landing-page-data {
     /* display: inline-flexbox; */
@@ -61,7 +61,7 @@ tr {
 tbody {
     display: flex;
     flex-direction: column;
-    background-color: rgba(103, 198, 253, 0.658);
+    background-color: rgba(232, 185, 171, 0.65);
     border-radius: 5px;
     /* flex: 4;
     flex-basis: auto; */
@@ -88,52 +88,60 @@ tbody {
 }
 
                   /* Nav Bar */
+#navbar {
+    display: flex;
+    /* flex-direction: row; */
+    height: 40px;
+    align-content: flex-start;
+    margin-top: 5px;
+    padding: 0; 
+    /* overflow: hidden; */
+    background-color: rgb(29, 52, 97);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+}
+
+
 #navbar ul {
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    border-bottom: 15px;
+    /* padding-bottom: 10px; */
+    flex: 1;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgb(171, 193, 236);
+    
+    /* border-width: 1px; */
+    /* border-style: dashed; */
+    /* background-color: rgba(59, 100, 59, 0.322); */
 }
-#navlist li {
-    float: left;
-}
-#navlist li a {
-  display: block;
-  color: white;
+#navlist li  {
+  display: flex;
+  /* flex-direction: row; */
+  /* background-color: rgba(210, 105, 30, 0.486); */
+  color: rgb(255, 255, 255); 
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 22px;
+  /* font-weight: bold; */
+  text-decoration: underline;
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  /* justify-items: center; */
+  align-self: center;
+  margin-bottom: 8px;
 }
                     /* Body Styling */
 body {
-    background: #DCDDDF url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
+    display: flex;
+    background: #A2C7E5 url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
     color: rgb(5, 5, 5);
     font: 14px Arial;
-    position: relative;
+    flex-direction: column;
 }
-/* h1{ font-size:32px;}
-h2{ font-size:26px;}
-h4{ font-size:16px;}
-h5{ font-size:14px;}
-h6{ font-size:12px;} */
-h4,h5,h6{ color:#4244a3;}
-.left { float:left; }
-.right { float:right; }
-.alignleft { float: left; margin-right: 15px; }
-.alignright { float: right; margin-left: 15px; }
-.clearfix:after,
-form:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-#container { margin: 25px auto; position: relative; width: 900px; }
 
 
-  /*login Content */
+                    /*login Content */
 #loginContent {
     display: block;
     background: #f9f9f9;
@@ -163,7 +171,14 @@ form:after {
     line-height: 20px;
     margin: 10px 0 30px;
 }
-/* Username and Pasword Fields*/
+form:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+                /* Username and Pasword Fields*/
 #loginContent form { margin: 0 20px; position: relative }
 #loginContent form input[type="text"],
 #loginContent form input[type="password"] {
@@ -276,42 +291,89 @@ form:after {
 }
 
             /*/ reports page /*/
-
 .table {
     font: bold;
     border: 1px solid black;
 }
-
 #report-container{
     display: flex;
     flex-direction: column; 
 }
 
+            /*/ User Related Pages /*/
 #user-page {
-    background-color: rgba(0, 59, 223, 0.418); 
+    background-color: rgba(0, 59, 223, 0.218); 
     display: flex;
     align-self: center;
-    height: 400px;
-    width: 
-    margin: 10px;
-    border-left: 50px;
-    padding-left: 50px;
+    height: 550px;
+    width: 400px;
+    /* margin: 10px; */
+    /* border-left: 30px;
+    padding-left: 30px; */
     border-radius: 8px;
-    justify-content: center;
+    /* justify-content: center; */
 }
-
 #user-form {
     display: flex;
     flex-direction: column;
+    align-self: center;
     background-color: #90d7f388; opacity: 0.8;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-left: 5px;
+    margin-left: 25px;
+    /* border-style: solid;
+    border-width: 1px; */
+    /* padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 5px; */
     border-radius: 6px;
-    width: 200px;
-    height: 350px;
+    width: 350px;
+    height: 500px;
 }
-/* input,textarea{width:150px;display:block} */
+
+#user-form h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+    align-self: center;
+}
+
+#user-form h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;}
+
+fieldset {
+    border-style: none;
+}
+
+ 
+#fieldset label {
+    font-family: Roboto, Arial, sans-serif;
+    padding: 0 5px;
+    
+      text-align: right;
+      vertical-align: middle;
+}
+#fieldset input {
+    padding: 5px;
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    }
+.account-details >div, input, label {
+    width: 85%;
+}
+  #fieldset #update-button {
+        width: 100%;
+        padding: 10px 0;
+        margin-top: 40px;
+        border-radius: 5px; 
+        border: none;
+        background: #8ebf42; 
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+ }
+
+ 

@@ -119,6 +119,7 @@ function displayData(hash){
             lbl.append(box)
             lbl.append(br)
             reportSelector.append(lbl)
+            hideReportSelector()
         }
     }
 }
@@ -247,10 +248,11 @@ function renderReports(report){
             })
             .then(function(data){
                 console.log(data)
-                hideLoginContainer()
-                hideStateSelector()
                 currentId = data.id 
             })
+            hideLoginContainer()
+            hideStateSelector()
+            console.log('hide state container')
         }
      ///######## Comparing users for Login##########
 const comparingUsers = (userlist) => {
@@ -410,6 +412,7 @@ const comparingUsers = (userlist) => {
         const hideStateSelector  = () => {
             const stateSelector = document.getElementById("state-selector")
             if (stateSelector.hidden === false) { stateSelector.hidden = true }
+            else if (stateSelector.hidden === true){stateSelector.hidden =false}
         }
         
         const hideLoginContainer  = () => {

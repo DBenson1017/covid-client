@@ -1,35 +1,93 @@
-/* Title Ticker */
+                /* Title Ticker */
 #title-ticker {
     display: flex;
-    
+    /* background-color: rgb(53, 86, 175); */
+    background-image: url("https://acttoronto.com/wp-content/uploads/2015/09/Blue-Banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-position: center; */ */
+}
+#covid-logo {
+    display: flex;
+    flex: 1;
+    background-image: url("https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/Covid_Watch_Logo_Brandmark_Blue.png/1200px-Covid_Watch_Logo_Brandmark_Blue.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat; 
+
 }
 
-#title-ticker h1 {
-    flex:1;
-   
-}
+
 #landingBanner {
    align-items: center;
-   flex:3;
+   flex:4;
+   /* justify-content: flex-end; */
 }
-
 #landingBanner h3 {
-   padding-left: 160px;
+   text-align: center;
+   letter-spacing: 5px;
+   /* padding-left: 175px; */
+   padding-top: 15px;
+   margin-top: 20px;
+   margin-right: 10px;
+   font-size: 26px;
+   font-weight: bold;
+   /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+   /* border-left: 30px; */
+   border-radius: 20px;
+   border-style: none;
+   /* width: 150px; */
+   height: 40px;
+   background-color: rgba(103, 198, 253, 0.350);
 }
-
 #us-landing-page-data {
+    /* display: inline-flexbox; */
     display: flex;
-}
+    flex-direction: column;
+    /* border-style: inset; */
+    align-items: center;
+    margin-bottom: 10px;
+    
 
-#us-landing-page-data td {
-    padding-left: 30px;
 }
-
+tr {
+    display: flex;
+    align-items: center;
+    /* border-left: 20px; */
+    margin-left: 80px;
+    margin-right: 80px;
+    justify-content: space-around;
+}
+tbody {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(103, 198, 253, 0.658);
+    border-radius: 5px;
+    /* flex: 4;
+    flex-basis: auto; */
+    justify-content: space-evenly;
+    align-items: stretch;
+    /* align-items: center; */
+    
+}
 #us-landing-page-data th {
-    padding-left: 10px;
-    padding-right: 10px;
+    display: flex;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-decoration: underline;
+        /* border-style: thin; */
+    /* flex-direction: column; */
+    /* flex-grow: 4; */
+    justify-content: space-evenly;
 }
-/* Nav Bar */
+#us-landing-page-data td {
+    display: flex;
+    /* border-style: dashed; */
+    /* flex-grow: 4; */
+    justify-content: space-evenly;
+}
+
+                  /* Nav Bar */
 #navbar ul {
     list-style-type: none;
     margin: 0;
@@ -37,11 +95,9 @@
     overflow: hidden;
     background-color: rgb(171, 193, 236);
 }
-
 #navlist li {
     float: left;
 }
-
 #navlist li a {
   display: block;
   color: white;
@@ -49,27 +105,19 @@
   padding: 14px 16px;
   text-decoration: none;
 }
-
-/* Body Styling */
+                    /* Body Styling */
 body {
     background: #DCDDDF url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
-    color: #000;
+    color: rgb(5, 5, 5);
     font: 14px Arial;
-    margin: 0 auto;
-    padding: 0;
     position: relative;
 }
-
-h1{ font-size:32px;}
+/* h1{ font-size:32px;}
 h2{ font-size:26px;}
-h3{ font-size:18px;}
 h4{ font-size:16px;}
 h5{ font-size:14px;}
-h6{ font-size:12px;}
-
-h1,h2,h3,h4,h5,h6{ color:#4244a3;}
-
-
+h6{ font-size:12px;} */
+h4,h5,h6{ color:#4244a3;}
 .left { float:left; }
 .right { float:right; }
 .alignleft { float: left; margin-right: 15px; }
@@ -86,7 +134,6 @@ form:after {
 
 
   /*login Content */
-
 #loginContent {
     display: block;
     background: #f9f9f9;
@@ -116,9 +163,7 @@ form:after {
     line-height: 20px;
     margin: 10px 0 30px;
 }
-
 /* Username and Pasword Fields*/
-
 #loginContent form { margin: 0 20px; position: relative }
 #loginContent form input[type="text"],
 #loginContent form input[type="password"] {
@@ -158,9 +203,7 @@ form:after {
 }
 #username { background-position: 10px 10px !important }
 #password { background-position: 10px -53px !important }
-
-/* Submit Button */
-
+            /* Submit Button */
 #loginContent form input[type="submit"] {
     background: rgb(254,231,154);
     background: -moz-linear-gradient(top,  rgba(254,231,154,1) 0%, rgba(254,193,81,1) 100%);
@@ -199,9 +242,7 @@ form:after {
     background: linear-gradient(top,  rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec151', endColorstr='#fee79a',GradientType=0 );
 }
-
-
-/* Register Button */
+                /* Register Button */
 #loginContent form div a {
     color: #004a80;
     font-size: 18px;
@@ -234,7 +275,7 @@ form:after {
     width: 120px;
 }
 
-/*/ reports page /*/
+            /*/ reports page /*/
 
 .table {
     font: bold;
@@ -245,3 +286,32 @@ form:after {
     display: flex;
     flex-direction: column; 
 }
+
+#user-page {
+    background-color: rgba(0, 59, 223, 0.418); 
+    display: flex;
+    align-self: center;
+    height: 400px;
+    width: 
+    margin: 10px;
+    border-left: 50px;
+    padding-left: 50px;
+    border-radius: 8px;
+    justify-content: center;
+}
+
+#user-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #90d7f388; opacity: 0.8;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 6px;
+    width: 200px;
+    height: 350px;
+}
+/* input,textarea{width:150px;display:block} */

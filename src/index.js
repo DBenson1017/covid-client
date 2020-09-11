@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function(e){
     // userList()
     hideStateSelector()
     hideReportSelector()
-    // hideLoginContainer()
+    hideLoginContainer()
     hideNewReport()
+    displayUserpage()
 })
 //#################### constants ##################################
 const stateList = []
@@ -221,33 +222,12 @@ function renderReports(report){
             reportContainer.append(reportTable)
         } else {
             // console.log('skiped')
-        }
-        
+        }   
     }
-
-
 }
 
+//##############Login and User Functions########
 
-//##################################################
-    const comparingUsers = (userlist) => {
-        let userInput = document.getElementById('username').value;
-        let passInput = document.getElementById('password').value;
-        
-        for (user of userlist){
-            if (user.username === userInput && user.password === passInput) {
-                hideLoginContainer() 
-                const stateSelector = document.getElementById("state-selector")
-                stateSelector.hidden = false
-                hideReportSelector()
-                currentId = user.id 
-                console.log(currentId)
-            }      
-            else{
-            //    window.alert('Incorrect name and password, please register')
-        }        
-            }
-        }
 // creating a user//
         const createUser = (uname, pword) => {
             let data = {username: uname, password: pword}
@@ -272,25 +252,40 @@ function renderReports(report){
                 currentId = data.id 
             })
         }
-        
+     ///######## Comparing users for Login##########
+const comparingUsers = (userlist) => {
+    let userInput = document.getElementById('username').value;
+    let passInput = document.getElementById('password').value;  
+    for (user of userlist){
+        if (user.username === userInput && user.password === passInput) {
+            hideLoginContainer() 
+            const stateSelector = document.getElementById("state-selector")
+            stateSelector.hidden = false
+            hideReportSelector()
+            currentId = user.id 
+            console.log(currentId)
+            }      
+        else{
+//    window.alert('Incorrect name and password, please register')
+        }        
+    }
+}
 
-
+///####### Display User Page ##########///
         const displayUserpage = () => {
             let userPage = document.createElement('div');
             userPage.id = "user-page"
             userPage.innerHTML = `
             <form id='user-form'>
             
-            <label>First Name:</label><br>
-            <input type="text" id="users-name" name="users-name"><br><br>
-    
-            <label>Last Name:</label><br>
-            <input type="text" id="users-surname" name="users-surname"><br><br>
-    
-            <label>Username:</label><br>
-            <input type="text" id="username" name="username"><br><br>
-    
-            <input type="submit" id="update-button" value="Update Profile">        
+          
+            <input type="text" id="name" value="Your name" name="name"><br><br> 
+            <input type="text" id="username" value:"Choose a Username" name="username"><br><br>
+            <input type="text" id="email" value=" Your e-mail address" name="email"><br><br>
+            <input type="password" id="password" value="Enter a password" name="password"<br><br>
+            <input type="text" id="state" value="AK, AL, OH, NJ" name="state"<br><br>
+           
+            <input type="submit" name="update-button" id="update-button" value="Submit Profile">        
             </form>
             `
             document.getElementById('body').append(userPage) 
